@@ -44,3 +44,38 @@ for neighbor in root.iter('neighbor'):
 {'name': 'Costa Rica', 'direction': 'W'}
 {'name': 'Colombia', 'direction': 'E'}
 '''
+
+'''
+Element.findall()仅查找带有标签的元素
+Element.find() :找到第一个带有特定标签的子元素
+Element.text:访问标签的内容
+Element.get()：访问标签的属性值
+
+'''
+for country in root.findall('country'):
+    rank = country.find('rank').text
+    name = country.get('name')
+    print(name, rank)
+
+''' 
+修改XML文件
+
+Element.text: 直接更改字段
+Element.set: 添加和修改属性
+Element.append: 添加新的子对象
+'''
+
+''' 
+下面例子：
+（1）国家排名 + 1
+（2）rank元素增加属性
+'''
+for rank in root.iter('rank'):
+    new = int(rank.text) + 1
+    rank.text = str(new)
+    rank.set('updated', 'yes')
+
+# 上述更改完成后，输出到一个新的xml文件
+tree.write('output.xml')
+
+
